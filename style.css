@@ -2846,3 +2846,125 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     .fan-card-right { --tx: 75px;  --ty: 12px; }
     .fan-card-center { --ty: -10px; }
 }
+
+/* Additional Mobile Responsiveness Fixes */
+@media (max-width: 768px) {
+    .modal-card {
+        width: 92%;
+        max-width: 100%;
+        padding: 1.25rem;
+        max-height: 85vh;
+    }
+
+    .cv-modal-card {
+        width: 95%;
+        padding: 1.25rem;
+        max-height: 90vh;
+    }
+
+    .photo-modal-card {
+        width: 95%;
+        padding: 0.75rem;
+    }
+
+    .photo-modal-card img {
+        max-height: 65vh;
+    }
+
+    .lang-dropdown-menu {
+        right: -10px;
+        min-width: 140px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-actions-hx {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .hero-actions-hx .btn-primary-hx,
+    .hero-actions-hx .btn-ghost-hx {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .hero-headline {
+        font-size: 1.85rem;
+        line-height: 1.2;
+    }
+
+    .navbar-outer {
+        padding: 0.5rem 0.75rem;
+    }
+
+    .navbar-pill {
+        padding: 0.4rem 0.75rem;
+    }
+
+    .nav-links {
+        left: 0.75rem;
+        right: 0.75rem;
+    }
+}
+
+/* Additional Mobile Responsiveness Fixes */
+@media (max-width: 768px) {
+    .modal-card {
+        width: 92%;
+        max-width: 100%;
+        padding: 1.25rem;
+        max-height: 85vh;
+    }
+
+    .cv-modal-card {
+        width: 95%;
+        padding: 1.25rem;
+        max-height: 90vh;
+    }
+
+    .photo-modal-card {
+        width: 95%;
+        padding: 0.75rem;
+    }
+
+    .photo-modal-card img {
+        max-height: 65vh;
+    }
+
+    .lang-dropdown-menu {
+        right: -10px;
+        min-width: 140px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-actions-hx {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .hero-actions-hx .btn-primary-hx,
+    .hero-actions-hx .btn-ghost-hx {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .hero-headline {
+        font-size: 1.85rem;
+        line-height: 1.2;
+    }
+
+    .navbar-outer {
+        padding: 0.5rem 0.75rem;
+    }
+
+    .navbar-pill {
+        padding: 0.4rem 0.75rem;
+    }
+
+    .nav-links {
+        left: 0.75rem;
+        right: 0.75rem;
+    }
+}

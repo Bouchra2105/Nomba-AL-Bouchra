@@ -729,7 +729,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    if (modalClose) modalClose.addEventListener('click', () => modal.classList.remove('active'));
+    if (modalClose && modal) modalClose.addEventListener('click', () => modal.classList.remove('active'));
     if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
 
 

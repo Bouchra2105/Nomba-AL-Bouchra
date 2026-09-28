@@ -117,6 +117,79 @@ body {
     -webkit-font-smoothing: antialiased;
     transition: background-color var(--transition-slow), color var(--transition-slow);
     overflow-x: hidden;
+    position: relative;
+}
+
+/* =====================================================
+   MATRIX BACKGROUND CANVAS & HACKER STREAM
+   ===================================================== */
+#matrix-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.18;
+    transition: opacity var(--transition-slow);
+}
+
+[data-theme="dark"] #matrix-canvas {
+    opacity: 0.38;
+}
+
+body.matrix-off #matrix-canvas {
+    opacity: 0 !important;
+}
+
+body.matrix-boost #matrix-canvas {
+    opacity: 0.65 !important;
+}
+
+.navbar-outer, main, footer, .modal-overlay, .back-to-top {
+    position: relative;
+    z-index: 10;
+}
+
+/* Hacker Code Typing Bar in Hero */
+.hacker-code-bar {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(6, 9, 16, 0.88);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    padding: 0.4rem 1.15rem;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: #e2e8f0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2), 0 0 15px rgba(56, 189, 248, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    margin-bottom: 0.35rem;
+    transition: all var(--transition);
+}
+
+.hcb-prompt {
+    color: var(--term-green);
+    font-weight: 700;
+}
+
+.hcb-code {
+    color: var(--term-cyan);
+    font-weight: 500;
+}
+
+.hcb-cursor {
+    color: var(--term-green);
+    font-weight: 700;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
 a { text-decoration: none; color: inherit; }
@@ -455,10 +528,13 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--bg-page);
+    background-color: rgba(250, 250, 248, 0.91);
     padding: 7rem 1.5rem 4rem;
     overflow: hidden;
     position: relative;
+}
+[data-theme="dark"] .hero-section {
+    background-color: rgba(13, 13, 13, 0.88);
 }
 
 /* Subtle noise/grid overlay */
@@ -701,8 +777,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     padding: 1.5rem 0;
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
-    background: var(--bg-page);
+    background: rgba(250, 250, 248, 0.91);
     overflow: hidden;
+}
+[data-theme="dark"] .marquee-section {
+    background: rgba(13, 13, 13, 0.88);
 }
 
 .marquee-track-wrapper {
@@ -819,7 +898,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
    9. ABOUT SECTION (WITH EXECUTIVE PHOTO CARD)
    ===================================================== */
 .about-section {
-    background: var(--bg-page);
+    background: rgba(250, 250, 248, 0.91);
+}
+[data-theme="dark"] .about-section {
+    background: rgba(13, 13, 13, 0.88);
 }
 
 .about-layout {
@@ -1015,6 +1097,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     color: var(--text-primary);
     font-weight: 600;
 }
+
+.avail-pill {
+    display: inline-flex;
+    align-items: center;
     gap: 0.35rem;
     padding: 0.2rem 0.65rem;
     background: var(--hx-green-light);
@@ -1036,6 +1122,156 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     border-radius: 50%;
     background: var(--hx-green);
     animation: pulse-green 2s ease-in-out infinite;
+}
+
+/* =====================================================
+   BIOGRAPHY STORYTELLING & TIMELINE CHAPTERS
+   ===================================================== */
+.bio-story-wrap {
+    margin-top: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.bio-quote-card {
+    position: relative;
+    background: var(--bg-surface);
+    border-left: 4px solid var(--hx-blue);
+    border-radius: 0 var(--radius-card) var(--radius-card) 0;
+    padding: 1.75rem 2rem;
+    box-shadow: var(--shadow-card);
+    border-top: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.bio-quote-text {
+    font-family: var(--font-heading);
+    font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+    font-style: italic;
+    color: var(--text-primary);
+    line-height: 1.55;
+    margin-bottom: 0.75rem;
+}
+
+.bio-quote-author {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--hx-blue);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.bio-metrics-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+}
+
+@media (max-width: 860px) {
+    .bio-metrics-strip { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+    .bio-metrics-strip { grid-template-columns: 1fr; }
+}
+
+.bio-metric-box {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    padding: 1.35rem 1rem;
+    text-align: center;
+    box-shadow: var(--shadow-card);
+    transition: transform var(--transition), border-color var(--transition);
+}
+
+.bio-metric-box:hover {
+    transform: translateY(-3px);
+    border-color: var(--hx-blue);
+}
+
+.bio-metric-num {
+    font-family: var(--font-mono);
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--hx-blue);
+    line-height: 1.1;
+    margin-bottom: 0.35rem;
+}
+
+.bio-metric-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    line-height: 1.35;
+}
+
+.bio-chapters-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+@media (max-width: 960px) {
+    .bio-chapters-grid { grid-template-columns: 1fr; }
+}
+
+.bio-chapter-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    box-shadow: var(--shadow-card);
+    transition: transform var(--transition), border-color var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.bio-chapter-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--hx-blue);
+}
+
+.bio-chapter-badge {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--hx-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.bio-chapter-card h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.35;
+}
+
+.bio-chapter-card p {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    flex: 1;
+}
+
+.bio-chapter-meta {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 0.75rem;
+    margin-top: 0.25rem;
 }
 
 .about-right {
@@ -1258,7 +1494,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
    11. SERVICES SECTION
    ===================================================== */
 .services-section {
-    background: var(--bg-surface);
+    background: rgba(255, 255, 255, 0.90);
+}
+[data-theme="dark"] .services-section {
+    background: rgba(23, 23, 23, 0.88);
 }
 
 .services-grid {
@@ -1347,7 +1586,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
    12. PROJECTS SECTION
    ===================================================== */
 .projects-section {
-    background: var(--bg-page);
+    background: rgba(250, 250, 248, 0.91);
+}
+[data-theme="dark"] .projects-section {
+    background: rgba(13, 13, 13, 0.88);
 }
 
 .filter-row {
@@ -1503,6 +1745,39 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     background: var(--border-subtle);
 }
 
+.project-action-btns {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.project-pdf-pill {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #ef4444;
+    background: #fef2f2;
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    padding: 0.2rem 0.65rem;
+    border-radius: var(--radius-pill);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: all var(--transition);
+    text-decoration: none;
+    font-family: var(--font-mono);
+}
+
+[data-theme="dark"] .project-pdf-pill {
+    background: rgba(239, 68, 68, 0.12);
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.project-pdf-pill:hover {
+    background: #ef4444;
+    color: #fff;
+    transform: translateY(-1px);
+}
+
 .project-name {
     font-size: 1.05rem;
     font-weight: 700;
@@ -1538,7 +1813,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
    13. EDUCATION TIMELINE
    ===================================================== */
 .education-section {
-    background: var(--bg-surface);
+    background: rgba(255, 255, 255, 0.90);
+}
+[data-theme="dark"] .education-section {
+    background: rgba(23, 23, 23, 0.88);
 }
 
 .timeline {
@@ -1722,6 +2000,52 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     text-overflow: ellipsis;
 }
 
+/* Timeline Document Download Bar */
+.timeline-doc-action {
+    margin-top: 1rem;
+}
+
+.btn-doc-download {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.85rem 1.15rem;
+    background: var(--bg-surface);
+    border: 1px dashed var(--hx-blue);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 0.86rem;
+    font-weight: 600;
+    transition: all var(--transition);
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.btn-doc-download:hover {
+    background: var(--hx-blue-light);
+    border-style: solid;
+    border-color: var(--hx-blue);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
+}
+
+[data-theme="dark"] .btn-doc-download {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(59, 130, 246, 0.4);
+}
+
+[data-theme="dark"] .btn-doc-download:hover {
+    background: rgba(59, 130, 246, 0.12);
+    border-color: var(--hx-blue);
+}
+
+.btn-doc-download i:first-child {
+    color: #ef4444;
+    font-size: 1.15rem;
+}
+
 /* Timeline Photo Proof Card (CNIB Certification single fallback) */
 .timeline-photo-proof {
     margin-top: 1rem;
@@ -1813,7 +2137,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
    14. CONTACT SECTION
    ===================================================== */
 .contact-section {
-    background: var(--bg-page);
+    background: rgba(250, 250, 248, 0.91);
+}
+[data-theme="dark"] .contact-section {
+    background: rgba(13, 13, 13, 0.88);
 }
 
 .contact-card {

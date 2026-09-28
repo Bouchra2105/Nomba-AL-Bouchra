@@ -690,16 +690,25 @@ document.addEventListener('DOMContentLoaded', () => {
             desc: "Solution logicielle web d'entreprise pour la gestion commerciale intégrée : traçabilité des stocks, émission automatisée de factures et suivi de la performance financière."
         },
         healthy: {
-            title: "HEALTHY Tech Solutions",
-            url: "#education",
-            cat: "HealthTech & Innovation (Projet CNIB)",
+            title: "HEALTHY Tech — Santé Communautaire & IA",
+            url: "assets/docs/memoire-soutenance-healthy-cnib.pdf",
+            docUrl: "assets/docs/memoire-soutenance-healthy-cnib.pdf",
+            isDoc: true,
+            cat: "HealthTech & IA • Dossier Investisseurs (Projet Soutenu au CNIB)",
             specs: [
-                { k: "Cadre", v: "Projet de Formation CNIB Jéricho" },
-                { k: "Validation", v: "Soutenu devant Jury Officiel" },
-                { k: "Domaine", v: "Solutions Santé & Outils Numériques" },
-                { k: "Rôle", v: "Conception, Architecture & Pitch" }
+                { k: "Thème Officiel", v: "Santé communautaire & IA pour la détection précoce au Bénin" },
+                { k: "Date Soutenance", v: "15 Février 2025 (Promotion Août 2024)" },
+                { k: "Cadre Académique", v: "CNIB Jéricho — Ministère du Numérique et de la Digitalisation" },
+                { k: "Direction Mémoire", v: "Sous la direction de Mr FRANCEGBE Ulrich Romain" },
+                { k: "Auteurs / Fondateurs", v: "NOMBA Al'bouchra (Dir. Générale) & KOURA Malachie (Dir. Technique)" },
+                { k: "Besoin Financement", v: "12 000 000 FCFA (Dev, Marketing, Déploiement)" },
+                { k: "Seuil Rentabilité", v: "Atteint à 18 mois (1 000 000 FCFA / mois)" },
+                { k: "Prévisions CA", v: "An 1 : 15 000 000 FCFA | An 2 : 30 000 000 FCFA (Bénéfice : 15M)" },
+                { k: "Objectif Utilisateurs", v: "500 000 utilisateurs actifs d'ici l'An 3" },
+                { k: "Technologies", v: "React, Node.js, MongoDB/PostgreSQL, Machine Learning IA, 2FA" },
+                { k: "Conformité Légale", v: "Protection des données de santé, conformité RGPD & lois béninoises" }
             ],
-            desc: "Projet technologique conçu, développé et défendu devant le jury officiel du Centre Numérique International du Bénin (CNIB). Dédié aux solutions innovantes pour améliorer la santé et l'accessibilité des soins."
+            desc: "Mémoire et projet d'entreprise innovante soutenu avec succès devant le jury officiel du Centre Numérique International du Bénin (CNIB). La plateforme HEALTHY combine intelligence artificielle prédictive, télémédecine et prévention communautaire pour réduire les inégalités d'accès aux soins de santé au Bénin et en Afrique de l'Ouest."
         }
     };
 
@@ -707,6 +716,21 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => {
             const data = projectData[btn.dataset.project];
             if (!data) return;
+
+            const actionHtml = data.isDoc ? `
+                <div style="display:flex;gap:0.75rem;flex-wrap:wrap">
+                    <a href="${data.docUrl}" target="_blank" download class="btn-primary-hx" style="flex:1;justify-content:center;text-decoration:none">
+                        <i class="fa-solid fa-download"></i> Télécharger le Mémoire PDF (47 pages)
+                    </a>
+                    <a href="${data.docUrl}" target="_blank" rel="noopener" class="btn-ghost-hx" style="flex:1;justify-content:center;text-decoration:none">
+                        <i class="fa-solid fa-file-pdf"></i> Lire le Document en Ligne
+                    </a>
+                </div>
+            ` : `
+                <a href="${data.url}" target="_blank" rel="noopener" class="btn-primary-hx" style="display:inline-flex;width:100%;justify-content:center;text-decoration:none">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Ouvrir le Projet Live
+                </a>
+            `;
 
             modalBody.innerHTML = `
                 <div style="font-family:var(--font-mono);font-size:0.72rem;font-weight:700;color:var(--hx-blue);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.5rem">${data.cat}</div>
@@ -720,16 +744,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     `).join('')}
                 </div>
-                <a href="${data.url}" target="_blank" rel="noopener" class="btn-primary-hx" style="display:inline-flex;width:100%;justify-content:center;text-decoration:none">
-                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Ouvrir le Projet Live
-                </a>
+                ${actionHtml}
             `;
 
             modal.classList.add('active');
         });
     });
 
-    if (modalClose && modal) modalClose.addEventListener('click', () => modal.classList.remove('active'));
+    if (modalClose) modalClose.addEventListener('click', () => modal.classList.remove('active'));
     if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
 
 
@@ -928,5 +950,173 @@ document.addEventListener('DOMContentLoaded', () => {
             photoModal.classList.remove('active');
         }
     });
+
+
+    /* ===================================================
+       14. MATRIX HACKER CODE BACKGROUND CANVAS
+       =================================================== */
+    const matrixCanvas = document.getElementById('matrix-canvas');
+    const matrixToggle = document.getElementById('matrix-toggle');
+
+    if (matrixCanvas) {
+        const ctx = matrixCanvas.getContext('2d');
+        let width = matrixCanvas.width = window.innerWidth;
+        let height = matrixCanvas.height = window.innerHeight;
+
+        // Rich character set: binary, hex, logic & developer syntax
+        const chars = '0101010101010123456789ABCDEF{}<>/=;+-%$#@!*&|~AI.HEALTHY.NOMBA()=>async.await';
+        const fontSize = 14;
+        let columns = Math.floor(width / fontSize);
+        let drops = [];
+
+        function initDrops() {
+            columns = Math.floor(width / fontSize);
+            drops = [];
+            for (let i = 0; i < columns; i++) {
+                drops[i] = Math.floor(Math.random() * -height / fontSize);
+            }
+        }
+        initDrops();
+
+        window.addEventListener('resize', () => {
+            width = matrixCanvas.width = window.innerWidth;
+            height = matrixCanvas.height = window.innerHeight;
+            initDrops();
+        }, { passive: true });
+
+        let lastTime = 0;
+        const fpsInterval = 35; // ~28-30 FPS for fluid matrix rain
+
+        function drawMatrix(timestamp) {
+            requestAnimationFrame(drawMatrix);
+
+            if (document.body.classList.contains('matrix-off')) return;
+
+            const elapsed = timestamp - lastTime;
+            if (elapsed < fpsInterval) return;
+            lastTime = timestamp - (elapsed % fpsInterval);
+
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            
+            // Subtle fade effect to create the code rain trail
+            ctx.fillStyle = isDark ? 'rgba(13, 13, 13, 0.08)' : 'rgba(250, 250, 248, 0.09)';
+            ctx.fillRect(0, 0, width, height);
+
+            ctx.font = `${fontSize}px 'JetBrains Mono', monospace`;
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                const x = i * fontSize;
+                const y = drops[i] * fontSize;
+
+                // Alternate between cyan and matrix green with white head
+                if (Math.random() > 0.92) {
+                    ctx.fillStyle = isDark ? '#ffffff' : '#0369a1';
+                    ctx.shadowBlur = isDark ? 6 : 0;
+                    ctx.shadowColor = '#38bdf8';
+                } else if (i % 3 === 0) {
+                    ctx.fillStyle = isDark ? '#38bdf8' : '#0284c7';
+                    ctx.shadowBlur = 0;
+                } else {
+                    ctx.fillStyle = isDark ? '#34d399' : '#059669';
+                    ctx.shadowBlur = 0;
+                }
+
+                if (y > 0) {
+                    ctx.fillText(text, x, y);
+                }
+
+                if (y > height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        requestAnimationFrame(drawMatrix);
+
+        // Matrix FX Toggle (Normal -> Boost -> Off -> Normal)
+        let matrixState = localStorage.getItem('portfolio_matrix_mode') || 'normal';
+        function applyMatrixState(state) {
+            document.body.classList.remove('matrix-boost', 'matrix-off');
+            if (state === 'boost') {
+                document.body.classList.add('matrix-boost');
+                if (matrixToggle) {
+                    matrixToggle.classList.add('active');
+                    matrixToggle.title = 'Effet Matrix: Lumineux (Cliquez pour désactiver)';
+                }
+            } else if (state === 'off') {
+                document.body.classList.add('matrix-off');
+                if (matrixToggle) {
+                    matrixToggle.classList.remove('active');
+                    matrixToggle.title = 'Effet Matrix: Désactivé (Cliquez pour réactiver)';
+                }
+            } else {
+                if (matrixToggle) {
+                    matrixToggle.classList.add('active');
+                    matrixToggle.title = 'Effet Matrix: Actif (Cliquez pour intensifier)';
+                }
+            }
+            localStorage.setItem('portfolio_matrix_mode', state);
+        }
+        applyMatrixState(matrixState);
+
+        if (matrixToggle) {
+            matrixToggle.addEventListener('click', () => {
+                if (matrixState === 'normal') matrixState = 'boost';
+                else if (matrixState === 'boost') matrixState = 'off';
+                else matrixState = 'normal';
+                applyMatrixState(matrixState);
+            });
+        }
+    }
+
+
+    /* ===================================================
+       15. HACKER LIVE CODE STREAM TYPEWRITER
+       =================================================== */
+    const hackerCodeEl = document.getElementById('hacker-code-typing');
+    if (hackerCodeEl) {
+        const codeSnippets = [
+            "const ai = new HealthModel({ precision: 0.99 });",
+            "await ai.detectEarlySymptoms(community_data);",
+            "deployCloud('render', { ssl: true, status: 200 });",
+            "SELECT * FROM inventory WHERE stock_level > 0;",
+            "system.connect({ architect: 'NOMBA Al\\'bouchra' });",
+            "git commit -m 'feat: launch HEALTHY v2.5 to prod'",
+            "init_ecommerce_cart({ realtime_whatsapp: true });",
+            "while(learning) { innovate(); buildFuture(); }"
+        ];
+
+        let snippetIdx = 0;
+        let charIdx = 0;
+        let isDeleting = false;
+
+        function typeCode() {
+            const currentSnippet = codeSnippets[snippetIdx];
+
+            if (isDeleting) {
+                hackerCodeEl.textContent = currentSnippet.substring(0, charIdx - 1);
+                charIdx--;
+            } else {
+                hackerCodeEl.textContent = currentSnippet.substring(0, charIdx + 1);
+                charIdx++;
+            }
+
+            let typeSpeed = isDeleting ? 20 : 45;
+
+            if (!isDeleting && charIdx === currentSnippet.length) {
+                typeSpeed = 2200; // Pause at end of snippet
+                isDeleting = true;
+            } else if (isDeleting && charIdx === 0) {
+                isDeleting = false;
+                snippetIdx = (snippetIdx + 1) % codeSnippets.length;
+                typeSpeed = 400; // Pause before next snippet
+            }
+
+            setTimeout(typeCode, typeSpeed);
+        }
+
+        setTimeout(typeCode, 800);
+    }
 
 });

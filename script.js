@@ -32,6 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
             "nav.contact": "Contact",
             "nav.cta": "Prendre Contact",
             "nav.cv": "CV",
+            "common.downloadCv": "My CV",
+            "common.downloadCvFull": "Download My CV",
+            "common.downloadCv": "Mon CV",
+            "common.downloadCvFull": "Télécharger Mon CV",
 
             "hero.status": "Disponible pour projets & collaborations",
             "hero.headline": "Développeur Web & Architecte Digital",
